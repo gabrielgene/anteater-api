@@ -1,0 +1,13 @@
+{
+  "name": "anteater-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:gabrielgene/anteater-api.git",
+  "author": "Gabriel Genê <gabrielgene97@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7"
+  }
+}
