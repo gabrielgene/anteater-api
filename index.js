@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -43,6 +44,9 @@ app.get('/data', function (req, res) {
     res.status(200).json(data);
   })
 });
+
+const indexHtmlPath = path.join(__dirname, './public/index.html');
+app.get('*', (req, res) => res.sendFile(indexHtmlPath));
 
 const server = app.listen(8080, function () {
   console.log('service RESTful API serer started on: ' + 8080);
