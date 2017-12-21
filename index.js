@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
   const data = {
     cords: '123',
-    clime: 'chuva'
+    weather: 'chuva'
   }
 
   model.create(data, function(err, data) {
@@ -45,8 +45,8 @@ app.get('/data', function (req, res) {
   })
 });
 
-const indexHtmlPath = path.join(__dirname, './public/index.html');
-app.get('*', (req, res) => res.sendFile(indexHtmlPath));
+// const indexHtmlPath = path.join(__dirname, './public/');
+// app.get('*', (req, res) => res.sendFile(indexHtmlPath));
 
 const server = app.listen(8080, function () {
   console.log('service RESTful API serer started on: ' + 8080);
