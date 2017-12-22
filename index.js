@@ -2,21 +2,18 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 const mongoose = require('mongoose');
+const model = require('./models');
 const bodyParser = require('body-parser');
+
+const PORT = process.env.PORT || 8080;
 
 mongoose.connect('mongodb://gabrielgene:gene12345@ds161146.mlab.com:61146/anteater', function (err, res) {
   if (err) throw err;
   console.log('Connected to MongoDB');
 });
 
-const Data = new mongoose.Schema({
-  cords: { type: String },
-  clime: { type: String },
-});
-
-const model = mongoose.model('Data', Data);
-
 const app = express();
+
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
@@ -25,7 +22,7 @@ app.get('/', function (req, res) {
     weather: 'chuva'
   }
 
-  model.create(data, function(err, data) {
+  model.create(data, function (err, data) {
     if (err) {
       console.log(err)
       res.status(500).send(err)
@@ -36,7 +33,7 @@ app.get('/', function (req, res) {
 
 app.get('/data', function (req, res) {
 
-  model.find({}, function(err, data) {
+  model.find({}, function (err, data) {
     if (err) {
       console.log(err)
       res.status(500).send(err)
@@ -48,6 +45,6 @@ app.get('/data', function (req, res) {
 // const indexHtmlPath = path.join(__dirname, './public/');
 // app.get('*', (req, res) => res.sendFile(indexHtmlPath));
 
-const server = app.listen(8080, function () {
-  console.log('service RESTful API serer started on: ' + 8080);
+const server = app.listen(PORT, function () {
+  console.log('service RESTful API serer started on: ' + PORT);
 });
