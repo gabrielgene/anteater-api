@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const Data = new mongoose.Schema({
-  point: { type: Object },
+  coords: { type: Object },
   weather: { type: String },
+  zoom: { type: Number },
 });
 
-module.exports =  mongoose.model('Data', Data);
+module.exports = mongoose.model('Data', Data);
