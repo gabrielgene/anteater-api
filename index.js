@@ -16,11 +16,24 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get('/', function (req, res) {
+app.all('/*', function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "POST, GET, PATCH, OPTIONS, PUT, DELETE");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Credentials", "true");
+	if (req.method == 'OPTIONS') {
+		res.status(200).end();
+	} else {
+		next();
+	}
+});
+
+app.post('/', function (req, res) {
+  const { body } = req;
+
   const data = {
-    cords: '123',
-    weather: 'chuva'
-  }
+    ...body,
+  };
 
   model.create(data, function (err, data) {
     if (err) {
@@ -31,7 +44,7 @@ app.get('/', function (req, res) {
   });
 });
 
-app.get('/data', function (req, res) {
+app.get('/', function (req, res) {
 
   model.find({}, function (err, data) {
     if (err) {
@@ -41,9 +54,6 @@ app.get('/data', function (req, res) {
     res.status(200).json(data);
   })
 });
-
-// const indexHtmlPath = path.join(__dirname, './public/');
-// app.get('*', (req, res) => res.sendFile(indexHtmlPath));
 
 const server = app.listen(PORT, function () {
   console.log('service RESTful API serer started on: ' + PORT);
